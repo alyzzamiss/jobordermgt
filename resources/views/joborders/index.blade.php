@@ -4,6 +4,7 @@
     <div class="jumbotron text-center">
         <h1>List of Job Orders</h1>
     </div>
+    <br>
     <div class="container">
         <table class="table table-hover">
             <thead class="thead-dark">
@@ -28,15 +29,13 @@
                                     <td>{{$job_order->amount}}</td>
                                     <td><center>
                                         <div class="btn-group" role="group">
-                                            <a href="/">
+                                            <a href="/joborders/{{$job_order->id}}">
                                             <button type="button" class="btn btn-secondary">View</button>
                                             </a>
-                                            <a href="/">
-                                                <button type="button" class="btn btn-primary">Edit</button>
-                                            </a>
-                                            <a href="/">
-                                            <button type="button" class="btn btn-danger">Remove</button>
-                                            </a>
+                                            {!!Form::open(['action' => ['JobOrdersController@destroy', $job_order->id], 'method' => 'POST' ])!!}
+                                                {{Form::hidden('_method', 'DELETE')}}
+                                                {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+                                            {!!Form::close()!!}
                                         </div>
                                     </center></td>
                                 </tr>

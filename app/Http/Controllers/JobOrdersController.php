@@ -43,7 +43,7 @@ class JobOrdersController extends Controller
             'ppmp_item_id' => 'required',
             'item_name' => 'required',
             'account' => 'required',
-            // 'date_due' => 'required',
+            'date_due' => 'required',
             'amount' => 'required|min:0',
             'staff' => 'required',
             'jo_details' => 'required'
@@ -51,13 +51,14 @@ class JobOrdersController extends Controller
 
         //create job order
         $joborder =  new JobOrder;
-        $joborder->jo_title = $request->input('item_name');
-        $joborder->jo_details = $request->input('jo_details');
-        // $joborder->date_due = $request->input('date_due');
-        $joborder->amount = $request->input('amount');
         $joborder->ppmp_item_id = $request->input('ppmp_item_id');
+        $joborder->jo_title = $request->input('item_name');
         $joborder->account_id = $request->input('account');
+        $joborder->date_due = $request->input('date_due');
+        $joborder->amount = $request->input('amount');
         $joborder->staff_id = $request->input('staff');
+        $joborder->jo_details = $request->input('jo_details');
+        $joborder->save();
 
         return redirect('/jo_list')->with('success', 'Job Order Created');
     }
@@ -70,7 +71,8 @@ class JobOrdersController extends Controller
      */
     public function show($id)
     {
-        
+        $joborder = JobOrder::find($id);
+        return view('joborders.show')->with('joborder', $joborder);
     }
 
     /**
@@ -81,7 +83,8 @@ class JobOrdersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $joborder = JobOrder::find($id);
+        return view('joborders.edit')->with('joborder', $joborder);
     }
 
     /**
@@ -93,7 +96,28 @@ class JobOrdersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'ppmp_item_id' => 'required',
+            'item_name' => 'required',
+            'account' => 'required',
+            'date_due' => 'required',
+            'amount' => 'required|min:0',
+            'staff' => 'required',
+            'jo_details' => 'required'
+        ]);
+
+        //update job order
+        $joborder = JobOrder::find($id);
+        $joborder->ppmp_item_id = $request->input('ppmp_item_id');
+        $joborder->jo_title = $request->input('item_name');
+        $joborder->account_id = $request->input('account');
+        $joborder->date_due = $request->input('date_due');
+        $joborder->amount = $request->input('amount');
+        $joborder->staff_id = $request->input('staff');
+        $joborder->jo_details = $request->input('jo_details');
+        $joborder->save();
+
+        return redirect('/jo_list')->with('success', 'Job Order Updated');
     }
 
     /**
@@ -104,6 +128,8 @@ class JobOrdersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $joborder = JobOrder::find($id);
+        $joborder->delete();
+        return redirect('/jo_list')->with('success', 'Job Order Removed');
     }
 }

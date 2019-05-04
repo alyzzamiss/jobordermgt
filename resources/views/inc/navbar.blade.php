@@ -7,13 +7,13 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/">PPMP Items<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="/jo_list">Job Orders</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="/">Accounts List</a>
+                <a class="nav-link" href="/accounts">Accounts List</a>
                 </li>
             </ul>
         </div>

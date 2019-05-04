@@ -31,7 +31,10 @@ Route::get('/createppmp', 'PpmpsController@create');
 
 Route::get('/jo_list', 'JobOrdersController@index');
 Route::get('/createjo', 'JobOrdersController@create');
+Route::get('/showjo', 'JobOrdersController@show');
+Route::get('/accounts', 'AccountsController@index');
 
 Route::resource('ppmps', 'PpmpsController');
 Route::resource('joborders', 'JobOrdersController');
+Route::resource('accounts', 'AccountsController');
 

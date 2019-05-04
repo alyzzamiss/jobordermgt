@@ -12,7 +12,7 @@
     <br>
     <div class="container">
         <table class="table table-hover">
-            <h3><center>PPMP Items</center></h3>
+            <h3><center>Supplemental PPMP Items</center></h3>
             <thead class="thead-dark">
             <tr>
                 <th scope="col" style="width:15%">PPMP Item ID</th>
