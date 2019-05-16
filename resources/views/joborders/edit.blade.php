@@ -10,8 +10,8 @@
         {!! Form::open(['action' => ['JobOrdersController@update', $joborder->id], 'method' => 'POST']) !!}
         
         <div class='form-group'>
-            {{Form::label('ppmp_item_id', 'PPMP Item ID')}}
-            {{Form::text('ppmp_item_id', $joborder->ppmp_item_id, ['class' => 'form-control', 'readonly'] )}}
+            {{Form::label('app_item_id', 'PPMP Item ID')}}
+            {{Form::text('app_item_id', $joborder->app_item_id, ['class' => 'form-control', 'readonly'] )}}
         </div>
 
         <div class='form-group'>

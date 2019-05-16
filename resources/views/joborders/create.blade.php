@@ -10,13 +10,13 @@
         {!! Form::open(['action' => 'JobOrdersController@store', 'method' => 'POST']) !!}
         
         <div class='form-group'>
-            {{Form::label('ppmp_item_id', 'PPMP Item ID')}}
-            {{Form::text('ppmp_item_id', $ppmp_items->id, ['class' => 'form-control', 'readonly'] )}}
+            {{Form::label('app_item_id', 'Item ID')}}
+            {{Form::text('app_item_id', $app_details->id, ['class' => 'form-control', 'readonly'] )}}
         </div>
 
         <div class='form-group'>
             {{Form::label('item_name', 'Item Name')}}
-            {{Form::text('item_name', $ppmp_items->item_name, ['class' => 'form-control', 'readonly'] )}}
+            {{Form::text('item_name', $app_details->item_name, ['class' => 'form-control', 'readonly'] )}}
         </div>
        
         <div class="form-group row">

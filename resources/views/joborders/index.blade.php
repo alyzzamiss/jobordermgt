@@ -13,7 +13,7 @@
                 <th scope="col" style="width:auto">Date Created</th>
                 <th scope="col" style="width:auto">Job Order Title</th>
                 <th scope="col" style="width:auto">Due Date</th>
-                <th scope="col" style="width:auto">Account Charged</th>
+                <th scope="col" style="width:auto">Amount</th>
                 <th scope="col" style="width:auto"><center>Action</center></th>
             </tr>
             </thead>

@@ -26,15 +26,20 @@ Route::get('/alist', function () {
 // Route::get('/realign', 'PagesController@realign');
 // Route::get('/edit', 'PagesController@edit');
 
-Route::get('/', 'PpmpsController@index');
-Route::get('/createppmp', 'PpmpsController@create');
+// Route::get('/', 'PpmpsController@index');
+// Route::get('/createppmp', 'PpmpsController@create');
 
 Route::get('/jo_list', 'JobOrdersController@index');
 Route::get('/createjo', 'JobOrdersController@create');
 Route::get('/showjo', 'JobOrdersController@show');
 Route::get('/accounts', 'AccountsController@index');
 
-Route::resource('ppmps', 'PpmpsController');
+
+Route::get('/', 'AppsController@index');
+Route::get('/showapps', 'AppsController@show');
+
+// Route::resource('ppmps', 'PpmpsController');
 Route::resource('joborders', 'JobOrdersController');
 Route::resource('accounts', 'AccountsController');
-
+Route::resource('apps', 'AppsController');
+Route::resource('costcenters', 'CostCentersController');

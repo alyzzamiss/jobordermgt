@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\JobOrder;
-use App\Ppmp_item;
+use App\AppDetail;
 
 
 class JobOrdersController extends Controller
@@ -40,7 +40,7 @@ class JobOrdersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'ppmp_item_id' => 'required',
+            'app_item_id' => 'required',
             'item_name' => 'required',
             'account' => 'required',
             'date_due' => 'required',
@@ -51,7 +51,7 @@ class JobOrdersController extends Controller
 
         //create job order
         $joborder =  new JobOrder;
-        $joborder->ppmp_item_id = $request->input('ppmp_item_id');
+        $joborder->app_item_id = $request->input('app_item_id');
         $joborder->jo_title = $request->input('item_name');
         $joborder->account_id = $request->input('account');
         $joborder->date_due = $request->input('date_due');
@@ -97,7 +97,7 @@ class JobOrdersController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'ppmp_item_id' => 'required',
+            'app_item_id' => 'required',
             'item_name' => 'required',
             'account' => 'required',
             'date_due' => 'required',
@@ -108,7 +108,7 @@ class JobOrdersController extends Controller
 
         //update job order
         $joborder = JobOrder::find($id);
-        $joborder->ppmp_item_id = $request->input('ppmp_item_id');
+        $joborder->app_item_id = $request->input('app_item_id');
         $joborder->jo_title = $request->input('item_name');
         $joborder->account_id = $request->input('account');
         $joborder->date_due = $request->input('date_due');
