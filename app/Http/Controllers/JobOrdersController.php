@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\JobOrder;
 use App\AppDetail;
 use App\Account;
+use App\Staff;
 use DB;
 use PDF;
 
@@ -94,7 +95,9 @@ class JobOrdersController extends Controller
     public function edit($id)
     {
         $joborder = JobOrder::find($id);
-        return view('joborders.edit')->with('joborder', $joborder);
+        $staff = Staff::all();
+        $account = Account::all();
+        return view('joborders.edit')->with('joborder', $joborder)->with('staff', $staff)->with('account', $account);
     }
 
     /**

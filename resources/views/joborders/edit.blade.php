@@ -21,11 +21,12 @@
        
         <div class="form-group row">
             <div class="col">
-                    {{Form::label('account', 'Charge to Account')}}
-                    {{Form::select('account', array('502305001' => 'GAA', 
-                                                '502305002' =>'Income',
-                                                '502305003' =>'Fiduciary'), $joborder->account_id, 
-                                                ['class' => 'form-control'])}}
+                {{Form::label('account', 'Charge to Account')}}
+                <select name="account" class="form-control">
+                    @foreach($account as $row)
+                        <option value="{{$row->id}}">{{$row->account_name}}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="col">
@@ -42,9 +43,11 @@
 
             <div class="col">
                     {{Form::label('staff', 'Requisitioner')}}
-                    {{Form::select('staff', array('1' => 'Ted Mosby', 
-                                                '2' =>'Marshall Ericson'), $joborder->staff_id, 
-                                                ['class' => 'form-control']) }}
+                <select name="staff" class="form-control">
+                    @foreach($staff as $row)
+                        <option value="{{$row->id}}">{{$row->staff_name}}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
 
