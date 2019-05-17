@@ -24,7 +24,10 @@
                                     <td>{{$account->id}}</td>
                                     <td>{{$account->account_name}}</td>
                                     <td>{{$account->account_balance}}</td>
-                                    <td><a href="/accounts/{{$account->id}}/edit" class="btn btn-primary">Realignment</a></td>
+                                    <td>
+                                        <a href="/accounts/{{$account->id}}/addFunds" class="btn btn-success">Add Funds</a>
+                                        <a href="/accounts/{{$account->id}}/edit" class="btn btn-primary">Realignment</a>
+                                    </td>
                                 </tr>
                             </div>
                         @endforeach

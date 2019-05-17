@@ -38,8 +38,10 @@ Route::get('/accounts', 'AccountsController@index');
 Route::get('/', 'AppsController@index');
 Route::get('/showapps', 'AppsController@show');
 Route::get('/accounts', 'AccountsController@index');
+Route::any('/accounts/{account}/addFunds', 'AccountsController@addFunds');
+Route::any('/accounts/{account}/updateFunds', 'AccountsController@updateFunds');
 
-Route::any('/accounts/edit', 'AccountsController@transferFunds');
+// Route::any('/accounts/edit', 'AccountsController@transferFunds');
 
 // Route::resource('ppmps', 'PpmpsController');
 Route::resource('joborders', 'JobOrdersController');

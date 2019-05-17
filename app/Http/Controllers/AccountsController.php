@@ -60,22 +60,31 @@ class AccountsController extends Controller
      */
     public function edit($id)
     {
-        // $accounts = Account::find($id);
         $accounts = Account::all();
-        // return view('accounts.edit')->with('accounts', $accounts);
 
-        // $accounts = Account::all();
         return view('accounts.edit')->with('accounts', $accounts);
     }
 
-    public function transferFunds($id)
-    {
-        // $accounts = Account::find($id);
+    public function addFunds($id)
+    {   
         $accounts = Account::all();
-        // return view('accounts.edit')->with('accounts', $accounts);
 
-        // $accounts = Account::all();
-        return view('accounts.edit')->with('accounts', $accounts);
+        return view('accounts.addFunds')->with('accounts', $accounts);
+    }
+
+    public function updateFunds(Request $request, $id)
+    {
+        $this->validate($request, [
+            'account' => 'required',
+            'funds' => 'required'
+        ]);
+
+        $funds = $request->input('funds');
+        $account = $request->input('account');
+
+        DB::table('accounts')->where('id', $account)->increment('account_balance', $funds);
+
+        return view('accounts.index')->with('success', 'Funds added successfully.');
     }
 
     /**
