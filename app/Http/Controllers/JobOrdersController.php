@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\JobOrder;
 use App\AppDetail;
+use App\Account;
+use DB;
+use PDF;
 
 
 class JobOrdersController extends Controller
@@ -71,7 +74,14 @@ class JobOrdersController extends Controller
      */
     public function show($id)
     {
-        $joborder = JobOrder::find($id);
+        $joborder = DB::table('job_orders')
+        ->join('accounts', 'accounts.id', 'job_orders.account_id')
+        ->join('staff', 'staff.id', 'job_orders.staff_id')
+        ->select('job_orders.id' ,'job_orders.jo_title',  'job_orders.jo_details', 'job_orders.created_at','job_orders.date_due' 
+                ,'accounts.account_name', 'staff.staff_name', 'job_orders.amount')
+        ->where('job_orders.id', $id)
+        ->first();
+        // $joborder = JobOrder::find($id);
         return view('joborders.show')->with('joborder', $joborder);
     }
 
@@ -131,5 +141,19 @@ class JobOrdersController extends Controller
         $joborder = JobOrder::find($id);
         $joborder->delete();
         return redirect('/jo_list')->with('success', 'Job Order Removed');
+    }
+
+    public function downloadPDF($id)
+    {
+        $joborder = DB::table('job_orders')
+        ->join('accounts', 'accounts.id', 'job_orders.account_id')
+        ->join('staff', 'staff.id', 'job_orders.staff_id')
+        ->select('job_orders.id' ,'job_orders.jo_title',  'job_orders.jo_details', 'job_orders.created_at','job_orders.date_due' 
+                ,'accounts.account_name', 'staff.staff_name', 'job_orders.amount')
+        ->where('job_orders.id', $id)
+        ->first();
+
+        $pdf = PDF::loadView('joborders.pdf', compact('joborder'));
+        return $pdf->download('invoice.pdf');
     }
 }

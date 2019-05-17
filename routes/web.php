@@ -34,12 +34,22 @@ Route::get('/createjo', 'JobOrdersController@create');
 Route::get('/showjo', 'JobOrdersController@show');
 Route::get('/accounts', 'AccountsController@index');
 
-
+// Search
+// Route::get('/search', 'SearchController@search');
 Route::get('/', 'AppsController@index');
 Route::get('/showapps', 'AppsController@show');
+
+Route::get('/accounts', 'AccountsController@index');
 
 // Route::resource('ppmps', 'PpmpsController');
 Route::resource('joborders', 'JobOrdersController');
 Route::resource('accounts', 'AccountsController');
 Route::resource('apps', 'AppsController');
 Route::resource('costcenters', 'CostCentersController');
+Route::resource('filters', 'FIltersController');
+
+// Route search 
+Route::get('/search',['uses' => 'SearchController@getSearch','as' => 'search']);
+
+// PDF route
+Route::get('/downloadPDF/{id}','JobOrdersController@downloadPDF');

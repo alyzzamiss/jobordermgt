@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Account;
+use PDF;
 
 class AccountsController extends Controller
 {
@@ -58,7 +59,11 @@ class AccountsController extends Controller
      */
     public function edit($id)
     {
-        //
+        // $accounts = Account::find($id);
+        // return view('accounts.edit')->with('accounts', $accounts);
+
+        // $accounts = Account::all();
+        // return view('accounts.edit')->with('accounts', $accounts);
     }
 
     /**
@@ -70,7 +75,15 @@ class AccountsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // $this->validate($request, [
+        //     'balance' => 'required',
+        // ]);
+
+        // $accounts = accounts::find($id);
+        // $accounts->account_balance = $request->input('balance');
+        // $accounts->save();
+
+        // return redirect('/accounts')->with('success', 'Accounts Updated');
     }
 
     /**

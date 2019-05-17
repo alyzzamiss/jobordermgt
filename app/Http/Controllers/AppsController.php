@@ -27,14 +27,6 @@ class AppsController extends Controller
             })
             ->orderBy('app_details.id', 'asc')
             ->get();
-
-        // $types = DB::table('apps')
-        //     ->select('type')
-        //     ->groupBy('type');
-        // $typeOptions = array('' => 'Select APP Type') +
-        // $types->pluck('type')->toArray();
-
-
         return view('apps.index')->with('app_details', $app_details);
     }
 

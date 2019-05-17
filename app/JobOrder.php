@@ -12,4 +12,13 @@ class JobOrder extends Model
     public $primaryKey = 'id';
     //
     public $timestamps = true;
+    //model relationship
+    public function appdetail(){
+        return $this->belongsTo('App\AppDetail');
+    }
+
+    public function account(){
+        return $this->belongsTo('App\Account');
+    }
+
 }

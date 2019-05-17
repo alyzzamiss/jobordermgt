@@ -75,11 +75,10 @@
                                     </tr>
                                 </div>
                             @endforeach
-                            
-                            @else
-                            <tr>
-                                <td colspan=5><p><center>No items found!</center></p></td>
-                            </tr>
+                    @else
+                        <tr>
+                            <td colspan=5><p><center>No items found!</center></p></td>
+                        </tr>
                     @endif
                 </tbody>
             </table>

@@ -29,12 +29,16 @@
                     <tr>
                         <td>{{$joborder->jo_details}}</td>
                         <td><center>{{$joborder->date_due}}</center></td>
-                        <td><center>{{$joborder->account_id}}</center></td>
+                        <td><center>{{$joborder->account_name}}</center></td>
                     </tr>
                 </div>
             </tbody>
         </table>
         <h5>Estimated Cost: {{$joborder->amount}}</5>
-        <h5>Job Requisitioner: {{$joborder->staff_id}}</h5>
+        <h5>Job Requisitioner: {{$joborder->staff_name}}</h5>
+        <hr>
+        <a href="{{action('JobOrdersController@downloadPDF', $joborder->id)}}">
+            <button type="button" class="btn btn-primary">Print</button>
+        </a>
     </div>
 @endsection

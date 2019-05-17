@@ -12,4 +12,8 @@ class AppDetail extends Model
      public $primaryKey = 'id';
      //
      public $timestamps = true;
+
+     public function joborder(){
+          return $this->belongsTo('App\JobOrder');
+      }
 }

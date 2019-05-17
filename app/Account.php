@@ -12,4 +12,9 @@ class Account extends Model
         public $primaryKey = 'id';
         //
         public $timestamps = true;
+
+        //model relationship
+        public function joborders(){
+                return $this->hasMany('App\JobOrder');
+        }
 }
