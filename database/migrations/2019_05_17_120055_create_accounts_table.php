@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePpmpsTable extends Migration
+class CreateAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreatePpmpsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ppmps', function (Blueprint $table) {
+        Schema::create('accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('type');
-            $table->integer('year');
+            $table->string('account_name', 255);
+            $table->double('account_balance', 2);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreatePpmpsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ppmps');
+        Schema::dropIfExists('accounts');
     }
 }

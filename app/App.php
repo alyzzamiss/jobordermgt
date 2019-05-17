@@ -6,10 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class App extends Model
 {
-      //Table Name
-      protected $table = 'apps';
-      //Primary Key
-      public $primaryKey = 'id';
-      //
-      public $timestamps = true;
+    //
 }

@@ -19,19 +19,18 @@ class CreateJobOrdersTable extends Migration
             $table->string('jo_details');
             $table->date('date_due');
             $table->decimal('amount', 50, 2);
-            $table->string('approved_by');
-            $table->integer('ppmp_item_id')->unsigned();
-            $table->string('account_id')->unsigned();
+            $table->string('approved_by')->nullable();
+            $table->integer('app_item_id')->unsigned();
+            $table->integer('account_id')->unsigned();
             $table->integer('staff_id')->unsigned();
             $table->timestamps();
         });
 
         Schema::table('job_orders', function($table) {
-            $table->foreign('ppmp_item_id')->references('id')->on('ppmp_items')->onDelete('cascade');
+            $table->foreign('app_item_id')->references('id')->on('app_details')->onDelete('cascade');
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->foreign('staff_id')->references('id')->on('staff')->onDelete('cascade');
         });
-            
     }
 
     /**

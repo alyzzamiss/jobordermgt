@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Account;
 use PDF;
+use DB;
 
 class AccountsController extends Controller
 {
@@ -60,10 +61,21 @@ class AccountsController extends Controller
     public function edit($id)
     {
         // $accounts = Account::find($id);
+        $accounts = Account::all();
         // return view('accounts.edit')->with('accounts', $accounts);
 
         // $accounts = Account::all();
+        return view('accounts.edit')->with('accounts', $accounts);
+    }
+
+    public function transferFunds($id)
+    {
+        // $accounts = Account::find($id);
+        $accounts = Account::all();
         // return view('accounts.edit')->with('accounts', $accounts);
+
+        // $accounts = Account::all();
+        return view('accounts.edit')->with('accounts', $accounts);
     }
 
     /**
@@ -75,15 +87,37 @@ class AccountsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->validate($request, [
-        //     'balance' => 'required',
-        // ]);
+        $this->validate($request, [
+            'amountTransfer' => 'required'
+        ]);
 
-        // $accounts = accounts::find($id);
-        // $accounts->account_balance = $request->input('balance');
-        // $accounts->save();
+        // $_POST values
+            $fromAccount = $request->input('fromAccount');
+            $transferAmount = $request->input('amountTransfer');
+            $toAccount = $request->input('toAccount');
 
-        // return redirect('/accounts')->with('success', 'Accounts Updated');
+        // Fetching its balance per ID
+            $fromAccountBalance = DB::table('accounts')
+            ->where('id', $fromAccount)
+            ->select('account_balance')->value('account_balance');
+
+            $toAccountBalance = DB::table('accounts')
+            ->where('id', $toAccount)
+            ->select('account_balance')->value('account_balance');
+
+        if($fromAccount !== $toAccount){
+            if($transferAmount <= $fromAccountBalance){
+                DB::table('accounts')->where('id', $fromAccount)->decrement('account_balance', $transferAmount);
+                DB::table('accounts')->where('id', $toAccount)->increment('account_balance', $transferAmount);
+    
+                return redirect('/accounts/1/edit')->with('success', 'Realignment successful!');
+            }else{
+                return redirect('/accounts/1/edit')->with('error', 'Requested amount is greater than the current balance.');
+            }
+            
+        }else{
+            return redirect('/accounts/1/edit')->with('error', 'You cannot transfer funds into the same account!');
+        }
     }
 
     /**
