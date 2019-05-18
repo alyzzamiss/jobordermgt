@@ -18,12 +18,7 @@ class CreateAppsTable extends Migration
             $table->string('type');
             $table->integer('year');
             $table->string('quarter');
-            $table->integer('costcenter_id')->unsigned();
             $table->timestamps();
-        });
-
-        Schema::table('apps', function($table) {
-            $table->foreign('costcenter_id')->references('id')->on('cost_centers')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

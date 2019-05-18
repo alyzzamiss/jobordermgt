@@ -18,11 +18,13 @@ class CreateAppDetailsTable extends Migration
             $table->string('item_name');
             $table->string('specification');
             $table->integer('app_id')->unsigned();
+            $table->integer('costcenter_id')->unsigned();
             $table->timestamps();
         });
 
         Schema::table('app_details', function($table) {
             $table->foreign('app_id')->references('id')->on('apps')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('costcenter_id')->references('id')->on('cost_centers')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

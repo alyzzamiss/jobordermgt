@@ -58,7 +58,7 @@
                                         @endforeach
                                     </select>
                                     <label for="">Amount to transfer:</label>
-                                    <input min="0" type="number" class="form-control" name="amountTransfer" required>
+                                    <input min="0" type="number" step="any" class="form-control" name="amountTransfer" required>
                                 </td>
                             </tr>
                             <thead>

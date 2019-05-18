@@ -19,16 +19,28 @@ class AppsController extends Controller
      */
     public function index()
     {
+        // $costcenters = CostCenter::all();
+        // $app_details = DB::table('app_details')
+        //     ->join ('apps', 'apps.id', 'app_details.app_id')
+        //     ->join ('cost_centers', 'cost_centers.id', 'app_details.costcenter_id')
+        //     ->select('app_details.id','cost_centers.costcenter_name', 'apps.year', 'apps.type', 'apps.quarter', 'app_details.item_name')
+        //     ->whereNOTIn('app_details.id', function($query){
+        //         $query->select('job_orders.app_item_id')->from('job_orders');
+        //     })
+        //     ->orderBy('app_details.id', 'asc')
+        //     ->get();
+
         $costcenters = CostCenter::all();
+        
         $app_details = DB::table('app_details')
-            ->join ('apps', 'apps.id', 'app_details.app_id')
-            ->join ('cost_centers', 'cost_centers.id', 'apps.costcenter_id')
-            ->select('app_details.id','cost_centers.costcenter_name', 'apps.year', 'apps.type', 'apps.quarter', 'app_details.item_name')
-            ->whereNOTIn('app_details.id',function($query){
-                $query->select('job_orders.app_item_id')->from('job_orders');
-            })
-            ->orderBy('app_details.id', 'asc')
-            ->get();
+        ->join ('cost_centers', 'cost_centers.id', 'app_details.costcenter_id')
+        ->join('apps', 'apps.id', 'app_details.app_id')
+        ->select('app_details.id','cost_centers.costcenter_name', 'apps.year', 'apps.type', 'apps.quarter', 'app_details.item_name')
+        ->whereNOTIn('app_details.id', function($query){
+            $query->select('job_orders.app_item_id')->from('job_orders');
+        })
+        ->orderBy('app_details.id', 'asc')
+        ->get();
             
         return view('apps.index')->with('app_details', $app_details)->with('costcenters', $costcenters);
     }

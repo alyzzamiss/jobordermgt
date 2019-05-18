@@ -15,10 +15,11 @@ class CreateJobOrdersTable extends Migration
     {
         Schema::create('job_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('jo_title');
-            $table->string('jo_details');
+            $table->string('jo_title', 255);
+            $table->string('jo_details', 255);
             $table->date('date_due');
             $table->decimal('amount', 50, 2);
+            $table->string('status', 255)->nullable();
             $table->string('approved_by')->nullable();
             $table->integer('app_item_id')->unsigned();
             $table->integer('account_id')->unsigned();

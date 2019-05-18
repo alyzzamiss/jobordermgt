@@ -33,7 +33,7 @@
                         @endforeach
                         
                         @else
-                        <tr>
+                        <tr align="center">
                             <td colspan=6><p>No items found!</p></td>
                         </tr>
                 @endif
