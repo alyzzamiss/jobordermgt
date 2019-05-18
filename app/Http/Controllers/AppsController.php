@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\App;
 use App\AppDetail;
-
-
+use App\Account;
+use App\Staff;
+use App\CostCenter;
 
 class AppsController extends Controller
 {
@@ -18,6 +19,7 @@ class AppsController extends Controller
      */
     public function index()
     {
+        $costcenters = CostCenter::all();
         $app_details = DB::table('app_details')
             ->join ('apps', 'apps.id', 'app_details.app_id')
             ->join ('cost_centers', 'cost_centers.id', 'apps.costcenter_id')
@@ -27,7 +29,8 @@ class AppsController extends Controller
             })
             ->orderBy('app_details.id', 'asc')
             ->get();
-        return view('apps.index')->with('app_details', $app_details);
+            
+        return view('apps.index')->with('app_details', $app_details)->with('costcenters', $costcenters);
     }
 
     /**
@@ -60,7 +63,13 @@ class AppsController extends Controller
     public function show($id)
     {
         $app_details = AppDetail::find($id);
-        return  view('joborders.create')->with('app_details', $app_details);
+        $apss = App::all();
+        $staffs = Staff::all();
+        $accounts = Account::all();
+        return  view('joborders.create')->with('app_details', $app_details)
+                                        ->with('staffs', $staffs)
+                                        ->with('accounts', $accounts)
+                                        ->with('apps', '$apss');
     }
     /**
      * Show the form for editing the specified resource.

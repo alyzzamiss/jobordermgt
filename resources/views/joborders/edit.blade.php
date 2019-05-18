@@ -4,7 +4,7 @@
     <div class="jumbotron text-center">
         <h1>Edit Job Order</h1>
     </div>
-    <a href="javascript:history.go(-1)" class="btn btn-outline-dark">Go Back</a>
+    <a href="/jo_list" class="btn btn-outline-dark">Go Back</a>
     <hr>
     <div class='container'>
         {!! Form::open(['action' => ['JobOrdersController@update', $joborder->id], 'method' => 'POST']) !!}

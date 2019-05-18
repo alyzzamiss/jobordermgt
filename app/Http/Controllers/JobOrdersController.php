@@ -130,7 +130,10 @@ class JobOrdersController extends Controller
         $joborder->jo_details = $request->input('jo_details');
         $joborder->save();
 
-        return redirect('/jo_list')->with('success', 'Job Order Updated');
+        // 
+        return redirect()->action(
+            'JobOrdersController@show', ['id' => $id]
+        );
     }
 
     /**

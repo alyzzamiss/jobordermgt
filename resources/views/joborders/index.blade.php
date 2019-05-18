@@ -10,7 +10,7 @@
             <thead class="thead-dark">
             <tr>
                 <th scope="col" style="width:10%">Job Order ID</th>
-                {{-- <th scope="col" style="width:auto">Date Created</th> --}}
+                <th scope="col" style="width:auto">Date Created</th>
                 <th scope="col" style="width:auto">Job Order Title</th>
                 <th scope="col" style="width:auto">Due Date</th>
                 <th scope="col" style="width:auto">Amount</th>
@@ -23,7 +23,7 @@
                             <div class="well">
                                 <tr>
                                     <td>{{$job_order->id}}</td>
-                                    {{-- <td>{{$job_order->created_at}}</td> --}}
+                                    <td>{{$job_order->created_at}}</td>
                                     <td>{{$job_order->jo_title}}</td>
                                     <td>{{$job_order->date_due}}</td>
                                     <td>{{$job_order->amount}}</td>

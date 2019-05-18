@@ -20,13 +20,13 @@
                     </thead>
                     <tbody>
                         @if(count($accounts) > 0)
-                                @foreach($accounts as $account)
+                                @foreach($accounts as $accountz)
                                     <div class="well">
                                         <tr>
-                                            <td><center>{{$account->id}}</center></td>
-                                            <td><center>{{$account->account_name}}</center></td>
+                                            <td><center>{{$accountz->id}}</center></td>
+                                            <td><center>{{$accountz->account_name}}</center></td>
                                             <td width='25%'><center>
-                                                {{$account->account_balance}}
+                                                {{$accountz->account_balance}}
                                             </td>
                                         </tr>
                                     </div>
@@ -42,25 +42,20 @@
             </div>
             <div class="col-3">
                 <h3>Add Funds</h3>
-                {!! Form::open(['action' => ['AccountsController@addFunds', $account->id], 'method' => 'POST']) !!}
+                {!! Form::open(['action' => ['AccountsController@updateFunds', $account->id], 'method' => 'POST']) !!}
                 {{-- {!! Form::open(['action' => '/accounts/{{$account->id}}/updateFunds', 'method' => 'POST']) !!} --}}
                     {{-- @csrf_field --}}
                     
                     <table class="table">
                         <thead class="thead-dark">
-                            <th>:</th>
+                            <th>Account Name: {{$account->account_name}}</th>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
-                                    <label>Choose an account:</label>
-                                    <select name="account" class="form-control">
-                                        @foreach($accounts as $row)
-                                            <option value="{{$row->id}}">{{$row->account_name}}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="hidden" id="account" name="account" value="{{$account->id}}">
                                     <label>Amount to Add:</label>
-                                    <input name="funds" min="0" type="number" class="form-control" required>
+                                    <input name="funds" min="0" step="any" type="number" class="form-control" required>
                                 </td>
                             </tr>
                             <tr>

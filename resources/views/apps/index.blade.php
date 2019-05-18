@@ -11,29 +11,29 @@
                 <div class="col">
                     {{Form::label('type', 'APP Type')}}
                     {{Form::select('type', array('Primary' => 'Primary', 
-                                                    'Supplemental' =>'Supplemental'), '', 
+                                                    'Supplemental' =>'Supplemental'), 'Supplemental', 
                                                     ['class' => 'form-control'])}}
                     
                 </div>
                 <div class="col">
                     {{Form::label('quarter', 'A.Y. Quarter')}}
-                    {{Form::select('quarter', array('1st Quarter' => '1st Quarter', 
-                                                    '2nd Quarter ' =>'2nd Quarter', 
-                                                    '3rd Quarter' => '3rd Quarter',
-                                                    '4th Quarter' => '4th Quarter'), '', 
-                                                    ['class' => 'form-control']) }}          
+                    <select name="quarter" class="form-control">
+                        <option value="" disabled selected>Select Quater</option>
+                        <option value="1st Quarter">1st Quarter</option>
+                        <option value="2nd Quarter">2nd Quarter</option>
+                        <option value="3rd Quarter">3rd Quarter</option>
+                        <option value="4th Quarter">4th Quarter</option>
+                    </select>        
                 </div>
 
                 <div class="col">
                         {{Form::label('costcenter', 'Cost Center')}}
-                        {{Form::select('costcenter', array('1' => 'CBAA', 
-                                            '2' =>'CON', 
-                                            '3' => 'CCS',
-                                            '4' => 'COET',
-                                            '5' => 'CASS',
-                                            '6' => 'CED',
-                                            '7' => 'CSM'), '', 
-                                            ['class' => 'form-control']) }}          
+                        <select name="costcenter" class="form-control">
+                            <option value="" disabled selected>Select Cost Center</option>
+                            @foreach($costcenters as $row)
+                                <option value="{{$row->id}}">{{$row->costcenter_name}}</option>
+                            @endforeach
+                        </select>         
                 </div>
             </div>
 
@@ -78,7 +78,7 @@
                             
                             @else
                             <tr>
-                                <td colspan=5><p><center>No items found!</center></p></td>
+                                <td colspan=7><p><center>No items found!</center></p></td>
                             </tr>
                     @endif
                 </tbody>

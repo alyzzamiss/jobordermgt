@@ -68,8 +68,8 @@ class AccountsController extends Controller
     public function addFunds($id)
     {   
         $accounts = Account::all();
-
-        return view('accounts.addFunds')->with('accounts', $accounts);
+        $account = Account::find($id);
+        return view('accounts.addFunds')->with('account', $account)->with('accounts', $accounts);
     }
 
     public function updateFunds(Request $request, $id)
@@ -84,7 +84,7 @@ class AccountsController extends Controller
 
         DB::table('accounts')->where('id', $account)->increment('account_balance', $funds);
 
-        return view('accounts.index')->with('success', 'Funds added successfully.');
+        return redirect('/accounts')->with('success', 'Funds added successfully.');
     }
 
     /**
