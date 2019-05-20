@@ -20,7 +20,13 @@ class JobOrdersController extends Controller
      */
     public function index()
     {
-        $joborders = JobOrder::all();
+        // $joborders = JobOrder::all();
+        $joborders = DB::table('job_orders')
+        ->select('job_orders.id', 'job_orders.created_at', 'job_orders.amount', 
+                'job_orders.jo_title', 'job_orders.date_due', 'job_orders.status')
+        ->orderBy('job_orders.status', 'desc')
+        ->orderBy('job_orders.created_at', 'desc')
+        ->get();
         return view('joborders.index')->with('joborders', $joborders);
 
     }
@@ -79,7 +85,7 @@ class JobOrdersController extends Controller
         ->join('accounts', 'accounts.id', 'job_orders.account_id')
         ->join('staff', 'staff.id', 'job_orders.staff_id')
         ->select('job_orders.id' ,'job_orders.jo_title',  'job_orders.jo_details', 'job_orders.created_at','job_orders.date_due' 
-                ,'accounts.account_name', 'staff.staff_name', 'job_orders.amount')
+                ,'accounts.account_name', 'staff.staff_name', 'job_orders.amount', 'job_orders.status', 'job_orders.received_by', 'job_orders.approved_at')
         ->where('job_orders.id', $id)
         ->first();
         // $joborder = JobOrder::find($id);
@@ -94,10 +100,20 @@ class JobOrdersController extends Controller
      */
     public function edit($id)
     {
-        $joborder = JobOrder::find($id);
+        // $joborder = JobOrder::find($id);
+        $joborder = DB::table('job_orders')
+        ->join('accounts', 'accounts.id', 'job_orders.account_id')
+        ->join('staff', 'staff.id', 'job_orders.staff_id')
+        ->select('job_orders.id', 'job_orders.app_item_id' ,'job_orders.jo_title',  'job_orders.jo_details', 'job_orders.created_at','job_orders.date_due' 
+                ,'accounts.account_name', 'job_orders.staff_id', 'job_orders.account_id' ,'staff.staff_name', 'job_orders.amount', 'job_orders.status', 'job_orders.received_by', 'job_orders.approved_at')
+        ->where('job_orders.id', $id)
+        ->first();
         $staff = Staff::all();
         $account = Account::all();
-        return view('joborders.edit')->with('joborder', $joborder)->with('staff', $staff)->with('account', $account);
+        return view('joborders.edit')->with('joborder', $joborder)
+                                    ->with('staff', $staff)
+                                    ->with('account', $account)
+                                    ->with('success', 'Job Order Successfully Updated!');
     }
 
     /**
@@ -114,7 +130,7 @@ class JobOrdersController extends Controller
             'item_name' => 'required',
             'account' => 'required',
             'date_due' => 'required',
-            'amount' => 'required|min:0',
+            'amount' => 'required',
             'staff' => 'required',
             'jo_details' => 'required'
         ]);
@@ -134,6 +150,49 @@ class JobOrdersController extends Controller
         return redirect()->action(
             'JobOrdersController@show', ['id' => $id]
         );
+    }
+
+    public function approve($id)
+    {
+        $joborder = DB::table('job_orders')
+        ->join('accounts', 'accounts.id', 'job_orders.account_id')
+        ->join('staff', 'staff.id', 'job_orders.staff_id')
+        ->select('job_orders.id' ,'job_orders.jo_title',  'job_orders.jo_details', 'job_orders.created_at','job_orders.date_due' 
+                ,'accounts.account_name', 'staff.staff_name', 'job_orders.amount', 'job_orders.account_id','job_orders.status', 'accounts.account_balance')
+        ->where('job_orders.id', $id)
+        ->first();
+        return view('joborders.approve')->with('joborder', $joborder)->with('success', 'Job Order Approved!');
+    }
+
+    public function approve_update(Request $request, $id)
+    {
+        $this->validate($request, [
+           'staff' => 'required',
+           'approved_at' =>'required',
+           'status' => 'required'
+        ]);
+
+        $amount = $request->input('amount');
+        $account_balance = $request->input('account_balance');
+        $account_id = $request->input('account_id');
+        //update job order
+    
+        if($amount <= $account_balance){
+            $joborder = JobOrder::find($id);
+            $joborder->received_by = $request->input('staff');
+            $joborder->status = $request->input('status');
+            $joborder->approved_at = $request->input('approved_at');
+            $joborder->save();
+
+            return redirect()->action('JobOrdersController@show', ['id' => $id]);
+        } else {
+
+            return redirect()->action('JobOrdersController@show', ['id' => $id])
+                    ->with('message', "Requested amount is greater than the current balance, <a href=/accounts/{$account_id}/addFunds>Click here</a> to realign funds.")
+                    ->with('status', 'danger');
+            // return redirect()->action('JobOrdersController@show', ['id' => $id])
+            //                  ->with('error', 'Requested amount is greater than the current balance.' <a href="/accounts" class="alert-link">Please realign funds.</a>');
+        }
     }
 
     /**
@@ -160,6 +219,6 @@ class JobOrdersController extends Controller
         ->first();
 
         $pdf = PDF::loadView('joborders.pdf', compact('joborder'));
-        return $pdf->download('invoice.pdf');
+        return $pdf->download('Job_Order.pdf');
     }
 }

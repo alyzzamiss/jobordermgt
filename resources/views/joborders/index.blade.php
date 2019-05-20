@@ -9,11 +9,12 @@
         <table class="table table-hover">
             <thead class="thead-dark">
             <tr>
-                <th scope="col" style="width:10%">Job Order ID</th>
+                <th scope="col" style="width:auto%">Job Order ID</th>
                 <th scope="col" style="width:auto">Date Created</th>
                 <th scope="col" style="width:auto">Job Order Title</th>
                 <th scope="col" style="width:auto">Due Date</th>
                 <th scope="col" style="width:auto">Amount</th>
+                <th scope="col" style="width:auto">Status</th>
                 <th scope="col" style="width:auto"><center>Action</center></th>
             </tr>
             </thead>
@@ -27,15 +28,19 @@
                                     <td>{{$job_order->jo_title}}</td>
                                     <td>{{$job_order->date_due}}</td>
                                     <td>{{$job_order->amount}}</td>
+                                    <td>{{$job_order->status}}</td>
                                     <td><center>
                                         <div class="btn-group" role="group">
                                             <a href="/joborders/{{$job_order->id}}">
                                             <button type="button" class="btn btn-secondary">View</button>
                                             </a>
+
+                                            @if($job_order->status == 'Pending')
                                             {!!Form::open(['action' => ['JobOrdersController@destroy', $job_order->id], 'method' => 'POST' ])!!}
                                                 {{Form::hidden('_method', 'DELETE')}}
                                                 {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
                                             {!!Form::close()!!}
+                                            @endif
                                         </div>
                                     </center></td>
                                 </tr>

@@ -2,10 +2,10 @@
     
 @section('content')
     <div class="jumbotron text-center">
-        <h1>APP Items</h1>
+        <h1>Items</h1>
     </div>
     <div class="container">
-        <p>Filter APP Items</p>
+        <p>Filter Items</p>
         {!! Form::open(['action' => 'SearchController@getSearch', 'method' => 'GET']) !!}
             <div class="form-group row">
                 <div class="col">

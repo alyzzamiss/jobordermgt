@@ -4,7 +4,7 @@
     <div class="jumbotron text-center">
         <h1>Edit Job Order</h1>
     </div>
-    <a href="/jo_list" class="btn btn-outline-dark">Go Back</a>
+    <a href="javascript:history.go(-1)" class="btn btn-outline-dark">Go Back</a>
     <hr>
     <div class='container'>
         {!! Form::open(['action' => ['JobOrdersController@update', $joborder->id], 'method' => 'POST']) !!}
@@ -23,6 +23,7 @@
             <div class="col">
                 {{Form::label('account', 'Charge to Account')}}
                 <select name="account" class="form-control">
+                        <option value="{{$joborder->account_id}}" style="display:none;">{{$joborder->account_name}}</option>
                     @foreach($account as $row)
                         <option value="{{$row->id}}">{{$row->account_name}}</option>
                     @endforeach
@@ -42,8 +43,9 @@
             </div>
 
             <div class="col">
-                    {{Form::label('staff', 'Requisitioner')}}
+                {{Form::label('staff', 'Requisitioner')}}
                 <select name="staff" class="form-control">
+                    <option value="{{$joborder->staff_id}}" style="display:none;">{{$joborder->staff_name}}</option>
                     @foreach($staff as $row)
                         <option value="{{$row->id}}">{{$row->staff_name}}</option>
                     @endforeach

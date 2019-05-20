@@ -39,7 +39,8 @@ class AppsController extends Controller
         ->whereNOTIn('app_details.id', function($query){
             $query->select('job_orders.app_item_id')->from('job_orders');
         })
-        ->orderBy('app_details.id', 'asc')
+        ->orderBy('apps.year', 'asc')
+        ->orderBy('apps.quarter', 'asc')
         ->get();
             
         return view('apps.index')->with('app_details', $app_details)->with('costcenters', $costcenters);

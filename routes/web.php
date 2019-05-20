@@ -32,6 +32,10 @@ Route::get('/alist', function () {
 Route::get('/jo_list', 'JobOrdersController@index');
 Route::get('/createjo', 'JobOrdersController@create');
 Route::get('/showjo', 'JobOrdersController@show');
+Route::get('/joborders/{joborder}/approve', 'JobOrdersController@approve');
+Route::any('/joborders/{joborder}/approve_update', 'JobOrdersController@approve_update');
+
+
 Route::get('/accounts', 'AccountsController@index');
 // Route::get('/accounts/create/{accounts}', 'AccountsController@index');
 

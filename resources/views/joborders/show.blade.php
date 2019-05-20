@@ -6,9 +6,21 @@
     </div> --}}
     <br>
     <a href="javascript:history.go(-1)" class="btn btn-outline-dark">Go Back</a>
-    <a href="/joborders/{{$joborder->id}}/edit">
-        <button type="button" class="btn btn-outline-primary">Edit</button>
-    </a>
+    <br>
+    <br>
+    
+    @if($joborder->status == 'Pending')
+        <a href="/joborders/{{$joborder->id}}/approve">
+            <button type="button" class="btn btn-success">Approve</button>
+        </a>
+
+        <a href="/joborders/{{$joborder->id}}/edit">
+            <button type="button" class="btn btn-outline-primary">Edit</button>
+        </a>
+    @endif
+
+    
+
     <hr>
     <div class="container">
         <h2>{{$joborder->jo_title}}</h2>
@@ -37,8 +49,16 @@
         <h5>Estimated Cost: {{$joborder->amount}}</5>
         <h5>Job Requisitioner: {{$joborder->staff_name}}</h5>
         <hr>
-        <a href="{{action('JobOrdersController@downloadPDF', $joborder->id)}}">
-            <button type="button" class="btn btn-primary">Print</button>
-        </a>
+
+        @if($joborder->status == 'Approved')
+        <p>Received by: {{$joborder->received_by}}
+        <br>Date received by: {{$joborder->approved_at}}</p>
+        @endif
+
+        @if($joborder->status == 'Pending')
+            <a href="{{action('JobOrdersController@downloadPDF', $joborder->id)}}">
+                <button type="button" class="btn btn-primary">Print</button>
+            </a>
+        @endif
     </div>
 @endsection

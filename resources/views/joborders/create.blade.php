@@ -4,7 +4,7 @@
     <div class="jumbotron text-center">
         <h1>Create Job Order</h1>
     </div>
-    <a href="/jo_list" class="btn btn-outline-dark">Go Back</a>
+    <a href="javascript:history.go(-1)" class="btn btn-outline-dark">Go Back</a>
     <hr>
     <div class='container'>
         {!! Form::open(['action' => 'JobOrdersController@store', 'method' => 'POST']) !!}
@@ -38,7 +38,8 @@
         <div class="form-group row">
             <div class="col">
                     {{Form::label('amount', 'Estimated Cost')}}
-                    {{Form::number('amount', '', ['class' => 'form-control', 'placeholder' => 'input estimated amount', 'step'=>'any']) }}
+                    <input name="amount" min="0" step="any" type="number" class="form-control" required>
+                    {{-- {{Form::number('amount', '', ['class' => 'form-control', 'placeholder' => 'input estimated amount', 'step'=>'any']) }} --}}
             </div>
 
             <div class="col">
